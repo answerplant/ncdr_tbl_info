@@ -24,11 +24,15 @@ with open(DATA, "r") as f:
         if line.startswith("\""):
             #tbl_info = line.translate(translation)
             tbl_info = line.split("¬")
+            tbl_info =  [t.strip('\"') for t in tbl_info]
             data_lists.append(tbl_info)
 
 print(data_lists[0])
 
-ncdr_df = pd.DataFrame(data_lists[1:], columns = ['"DatabaseId"', '"Database"', '"SchemaID"', '"Schema"', '"Table/ViewID"', '"Table/View"', '"Table or View"', '"Name"', '"Description"', '"Date_Range"', '"Data_Start"', '"Data_End"', '"Link"', '"Link Type"', '"Data_Sharing"', '"Data_Source"', '"DatSchem"\n']) 
-print(ncdr_df.info())
+ncdr_df = pd.DataFrame(data_lists[1:], columns = ['DatabaseId', 'Database', 'SchemaID', 'Schema', 'Table/ViewID', 'Table/View', 'Table or View', 'Name', 'Description', 'Date_Range', 'Data_Start', 'Data_End', 'Link', 'Link Type', 'Data_Sharing', 'Data_Source', 'DatSchem']) 
+#print(ncdr_df.info())
+ncdr_df.head()
 
-ncdr_df.to_csv("NCDR_DB_Summary.csv")
+db_list = ncdr_df['Database'].unique()
+print(db_list)
+#ncdr_df.to_csv("NCDR_DB_Summary.csv")
